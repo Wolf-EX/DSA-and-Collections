@@ -1,4 +1,4 @@
-import { Comparator } from "./comparator.js";
+import { Comparator } from "../Collections/comparator.js";
 
 export class Sort{
 

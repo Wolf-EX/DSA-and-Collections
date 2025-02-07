@@ -9,7 +9,7 @@ import { Map } from './Collections/Map/map.js'; //can maybe remove later - here 
 import { HashSet } from './Collections/Set/hashset.js';
 import { Consumer } from './Collections/iterable.js';
 import { BST } from './Collections/Tree/bst.js';
-import { Sort } from './Collections/sort.js';
+import { Sort } from './Algorithms/sort.js';
 import { AVL } from './Collections/Tree/avl.js';
 import { LinkedAVL } from './Collections/Tree/linkedavl.js';
 
