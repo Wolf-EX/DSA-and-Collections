@@ -322,33 +322,3 @@ export class HashMap extends Map{
     return null;
   }
 }
-
-
-//Probably not needed
-//class ArraySupport{
-
-  /* static  vectorizedHashCode( array,  fromIndex,  length,  initialValue,
-     basicType) {
-    return switch (basicType) {
-    case T_BOOLEAN -> signedHashCode(initialValue, (byte[]) array, fromIndex, length);
-    case T_CHAR -> array instanceof byte[]
-    ? utf16hashCode(initialValue, (byte[]) array, fromIndex, length)
-    : hashCode(initialValue, (char[]) array, fromIndex, length);
-    case T_BYTE -> hashCode(initialValue, (byte[]) array, fromIndex, length);
-    case T_SHORT -> hashCode(initialValue, (short[]) array, fromIndex, length);
-    case T_INT -> hashCode(initialValue, (int[]) array, fromIndex, length);
-    default -> throw new IllegalArgumentException("unrecognized basic type: " + basicType);
-    };
-  } */
-
-
-
-  //string
-  /* static hashCode(result, a, fromIndex, length) {
-    let end = fromIndex + length;
-    for (i = fromIndex; i < end; i++) {
-        result = 31 * result + a[i];
-    }
-    return result;
-  } */
-//}
