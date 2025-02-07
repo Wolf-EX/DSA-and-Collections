@@ -1,5 +1,5 @@
 
-import { WMath } from './WMath.js';
+import { MathUtil } from './Algorithms/math.js';
 import { PriorityQueue } from './Collections/Queue/priorityqueue.js';
 import { Comparator } from './Collections/comparator.js';
 import { ArrayList } from './Collections/List/arraylist.js';
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
   CANVAS.setAttribute('height', canvasHeight);
 
   //Utilitys
-  globalThis.wMath = new WMath();
+  globalThis.math = new MathUtil();
 
 
   class compareClassString extends Comparator{
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // tree.array = tree.avlBalance();
   // console.log("bst: " + tree);
 
-  const tree = new LinkedAVL();
+  const tree = new AVL();
 
   //left left
   tree.add("Q");

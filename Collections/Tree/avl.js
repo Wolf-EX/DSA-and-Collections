@@ -35,8 +35,6 @@ export class AVL extends BST{
     this.#swapInOrderNodes;
     this.#getLowestValueNode, this.#getHighestValueNode;
     this.#getNodeHeight, this.#getNodeBalanceFactor;
-
-    this.#mod;//temp
   }
 
   add(object){
@@ -68,7 +66,7 @@ export class AVL extends BST{
     //moving nodes of rotation down
     this.postOrderTraverse(this.#getChildNode(node, rotateDirection)).forEach(e => {
       
-      let side = this.#mod(e.index, 2) //1 left, 0 right
+      let side = math.mod(e.index, 2); //1 left, 0 right
       e.index = this.#getChildNode(e.index + ((rotateDirection == 1) ? side - 1 : side) , (side == 1) ? 1 : 2);
       nodes.push(e);
     });
@@ -93,7 +91,7 @@ export class AVL extends BST{
 
       this.preOrderTraverse(this.#getChildNode(otherChild, direction)).forEach((e, i) => {
 
-        let side = this.#mod(e.index, 2) //1 left, 0 right
+        let side = math.mod(e.index, 2); //1 left, 0 right
         side = (rotateDirection == 1) ? -side - 1: -side;
         this.array[e.index] = null;
         e.index = Math.ceil(e.index / 2) + side;
@@ -250,12 +248,6 @@ export class AVL extends BST{
 
     return ((object1 && Object.hasOwn(object1.__proto__, 'equals') && object1.equals(object2)) || (object1 === object2)) ? true : false;
    }
-
-   #mod(n, d){
-
-    return ((n % d) + d) % d;
-    //return -(Math.floor(n / d) * d - n);
-  }
 }
 
 class compareClass extends Comparator{

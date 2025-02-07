@@ -31,8 +31,6 @@ export class LinkedAVL{
     this.#rotateNode;
     this.#getChildNode;
     this.#getSide;
-
-    this.#mod;//temp
   }
 
   add(object){
@@ -242,12 +240,6 @@ export class LinkedAVL{
 
     return ((object1 && Object.hasOwn(object1.__proto__, 'equals') && object1.equals(object2)) || (object1 === object2)) ? true : false;
    }
-
-   #mod(n, d){
-
-    return ((n % d) + d) % d;
-    //return -(Math.floor(n / d) * d - n);
-  }
 }
 
 class compareClass extends Comparator{

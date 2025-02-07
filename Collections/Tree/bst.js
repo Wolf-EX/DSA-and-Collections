@@ -24,8 +24,6 @@ export class BST extends Collection{
     //avl balance
     this.#getNodeHeight, this.#getNodeBalanceFactor;
     this.#rotateNode;
-
-    this.#mod;//temp
   }
 
   add(object){
@@ -234,7 +232,7 @@ export class BST extends Collection{
     //moving nodes of rotation down
     this.postOrderTraverse(_tree, this.#getChildNode(node, rotateDirection)).forEach(e => {
       
-      let side = this.#mod(e.index, 2) //1 left, 0 right
+      let side = math.mod(e.index, 2); //1 left, 0 right
       e.index = this.#getChildNode(e.index + ((rotateDirection == 1) ? side - 1 : side) , (side == 1) ? 1 : 2);
       nodes.push(e);
     });
@@ -259,7 +257,7 @@ export class BST extends Collection{
 
       this.preOrderTraverse(_tree, this.#getChildNode(otherChild, direction)).forEach((e, i) => {
 
-        let side = this.#mod(e.index, 2) //1 left, 0 right
+        let side = math.mod(e.index, 2); //1 left, 0 right
         side = (rotateDirection == 1) ? -side - 1: -side;
         _tree[e.index] = null;
         e.index = Math.ceil(e.index / 2) + side;
@@ -314,13 +312,6 @@ export class BST extends Collection{
     let rightChild = (tree[this.#getChildNode(node, 2)] != null) ? tree[this.#getChildNode(node, 2)].depth : this.#getNodeHeight(node);
 
     return rightChild - leftChild;
-  }
-
-  //temp
-  #mod(n, d){
-
-    return ((n % d) + d) % d;
-    //return -(Math.floor(n / d) * d - n);
   }
 }
 
