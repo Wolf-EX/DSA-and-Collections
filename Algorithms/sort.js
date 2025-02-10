@@ -16,12 +16,17 @@ export class Sort{
     let length = array.length;
 
     for(let i = 0; i < _array.length; i++){
+      let hasSwapped = false;
       for(let j = 0; j < length; j++){
         if(this.#getCompare(_array[j], _array[j + 1])){
           let e = _array[j];
           _array[j] = _array[j + 1];
           _array[j + 1] = e;
+          hasSwapped = true;
         }
+      }
+      if(!hasSwapped){
+        break;
       }
       length--;
     }
@@ -48,7 +53,22 @@ export class Sort{
     return _array;
   }
 
-  insertionSort(array){}
+  insertionSort(array){
+
+    let _array = [...array];
+
+    for(let i = 1; i < _array.length; i++){
+      let currentValue = _array[i];
+      for(let j = i - 1; j >= 0; j--){
+        if(this.#getCompare(currentValue, _array[j])){
+          break;
+        }
+        _array[j + 1] = _array[j];
+        _array[j] = currentValue;
+      }
+    }
+    return _array;
+  }
 
   quickSort(array){}
 
@@ -56,7 +76,7 @@ export class Sort{
 
   #getCompare = function(a, b){
 
-    return (this.#comparator.compare(a, b) >= 0) ? true : false;
+    return (this.#comparator.compare(a, b) > 0) ? true : false;
   }
 }
 
