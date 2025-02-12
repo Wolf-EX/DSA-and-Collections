@@ -33,11 +33,9 @@ export class Sort{
 
       }
 
-      //console.log(hasSwapped)
       if(hasSwapped == false){
         break;
       }
-      //console.log("iterations")
       length--;
     }
     return _array;
@@ -89,7 +87,7 @@ export class Sort{
     return _array;
   }
 
-  //Missing optimization on decending order and random
+  //Missing optimization on decending order and random?
   quickSort(array){
 
     let _array = [...array];
@@ -124,7 +122,7 @@ export class Sort{
 
       pivot = right;
 
-      let leftHit = false;
+      let leftHit = false; //rename this
       for(let i = left; i < right; i++){
         this.iterations++;
 
@@ -145,7 +143,6 @@ export class Sort{
   }
 
   //Helper Functions
-
   #getCompare = function(a, b){
 
     return (this.#comparator.compare(a, b) >= 0) ? true : false;
