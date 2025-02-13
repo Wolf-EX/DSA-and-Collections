@@ -1,5 +1,4 @@
 /*
-Made for no reason, probably not efficient
 Default sorting is from least to greatest
 to change sorting, pass comparator object with compare function in constructor
 */
@@ -24,7 +23,7 @@ export class PriorityQueue extends Queue{
         try{
           arg[0].toArray().forEach(element =>{
             this.add(element);
-          })
+          });
         }
         catch(err){
           throw "collection.LinkedList - IllegalArgumentException: Argument must be a collection or empty";

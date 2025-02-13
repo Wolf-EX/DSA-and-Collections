@@ -1,7 +1,7 @@
 import { Collection } from "../collection.js";
 import { Comparator } from "../comparator.js";
 
-export class BST extends Collection{
+export class BinarySearchTree extends Collection{
 
   #comparator;
 

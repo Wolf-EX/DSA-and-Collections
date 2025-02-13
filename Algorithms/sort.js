@@ -1,3 +1,4 @@
+//Javascripts build in sort is many times faster.
 import { Comparator } from "../Collections/comparator.js";
 
 export class Sort{
@@ -9,7 +10,7 @@ export class Sort{
     this.#getCompare;
     this.#comparator = comparator;
 
-    this.iterations = 0;
+    this.operation = 0; //For testing
   }
   
   bubbleSort(array){
@@ -17,23 +18,23 @@ export class Sort{
     let _array = [...array];
     let length = array.length;
 
-    this.iterations = 0;
+    this.operation = 0;
 
     for(let i = 0; i < _array.length; i++){
-      this.iterations++;
       let hasSwapped = false;
       for(let j = 0; j < length; j++){
-        this.iterations++;
+        this.operation++;
         if(this.#getCompare(_array[j], _array[j + 1])){
+          this.operation++;
           let e = _array[j];
           _array[j] = _array[j + 1];
           _array[j + 1] = e;
           hasSwapped = true;
         }
-
       }
 
       if(hasSwapped == false){
+        this.operation++;
         break;
       }
       length--;
@@ -48,14 +49,14 @@ export class Sort{
     let startIndex = 0;
     let holdIndex = startIndex;
 
-    this.iterations = 0;
+    this.operation = 0;
 
     for(let i = 0; i < _array.length; i++){
-      this.iterations++;
       for(let j = startIndex; j < length; j++){
-        this.iterations++;
+        this.operation++;
         holdIndex = this.#getCompare(_array[holdIndex], _array[j]) ? j : holdIndex;
       }
+      this.operation++;
       let e = _array[startIndex];
       _array[startIndex] = _array[holdIndex];
       _array[holdIndex] = e;
@@ -69,16 +70,16 @@ export class Sort{
 
     let _array = [...array];
 
-    this.iterations = 0;
+    this.operation = 0;
 
     for(let i = 1; i < _array.length; i++){
-      this.iterations++;
       let currentValue = _array[i];
       for(let j = i - 1; j >= 0; j--){
-        this.iterations++;
         if(this.#getCompare(currentValue, _array[j])){
+          this.operation++;
           break;
         }
+        this.operation++;
         _array[j + 1] = _array[j];
         _array[j] = currentValue;
 
@@ -91,52 +92,59 @@ export class Sort{
   quickSort(array){
 
     let _array = [...array];
-    let lock = [];
-    let left = 0;
-    let right = _array.length - 1;
+    let indexLock = [];
+    let min = 0;
+    let max = _array.length - 1;
     
-    let swapIndex = left;
-    let pivot = right;
+    let compareIndex = min;
+    let pivot = max;
 
-    this.iterations = 0;
+    this.operation = 0;
 
-    while(left != right){
-      this.iterations++;
-      for(let i = left; i <= pivot; i++){
-        this.iterations++;
+    while(min != max){
+      for(let i = min; i <= pivot; i++){
+        this.operation++;
         if(this.#getCompare(_array[pivot], _array[i])){
-
-          let e = _array[swapIndex];
-          _array[swapIndex] = _array[i];
+          let e = _array[compareIndex];
+          _array[compareIndex] = _array[i];
           _array[i] = e;
-
-          swapIndex++;
+          compareIndex++;
         }
       }
-      swapIndex--;
-      lock[swapIndex] = true;
 
-      if(swapIndex == right){
-        right--;
+      this.operation++;
+      compareIndex--;
+      indexLock[compareIndex] = true;
+
+      if(compareIndex == max){
+        max--;
       }
 
-      pivot = right;
+      let rightHit = false;
+      if(compareIndex - 1 > 0 && indexLock[compareIndex - 1] != true){
+        pivot = compareIndex - 1;
+        rightHit = true;
+      } else {
+        pivot = max;
+      }
 
-      let leftHit = false; //rename this
-      for(let i = left; i < right; i++){
-        this.iterations++;
-
+      let leftHit = false;
+      for(let i = min; i < max; i++){
+        this.operation++;
         if(leftHit == false){
-          if(lock[i] != true){
-            left = i;
+          if(indexLock[i] != true){
+            min = i;
             leftHit = true;
+            if(rightHit == true){
+              break;
+            }
           }
-        } else if(lock[i] == true && lock[i - 1] != true){
+        } else if(indexLock[i] == true && indexLock[i - 1] != true){
           pivot = i - 1;
           break;
         }
       }
-      swapIndex = left;
+      compareIndex = min;
     }
 
     return _array;

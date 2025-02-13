@@ -1,6 +1,5 @@
 import { Comparator } from "../comparator.js";
 
-
 class Node{
 
   constructor(value, height = 0){

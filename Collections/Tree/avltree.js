@@ -1,19 +1,9 @@
 import { Comparator } from "../comparator.js";
-import { BST } from "./bst.js";
+import { BinarySearchTree } from "./binarysearchtree.js";
 
 //fix up variable names, clean up code
-class Node{
-
-  constructor(value, index){
-    this.value = value;
-    this.index = index;
-    this.depth;
-
-    this.balanceFactor = 0; //for debug purpose, remove later
-  }
-}
-
-export class AVL extends BST{
+//Test and Fix delete function
+export class AVLTree extends BinarySearchTree{
 
 
   #comparator;
@@ -249,6 +239,18 @@ export class AVL extends BST{
     return ((object1 && Object.hasOwn(object1.__proto__, 'equals') && object1.equals(object2)) || (object1 === object2)) ? true : false;
    }
 }
+
+class Node{
+
+  constructor(value, index){
+    this.value = value;
+    this.index = index;
+    this.depth;
+
+    this.balanceFactor = 0; //for debug purpose, remove later
+  }
+}
+
 
 class compareClass extends Comparator{
 
