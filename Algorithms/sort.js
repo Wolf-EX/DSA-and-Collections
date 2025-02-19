@@ -88,13 +88,12 @@ export class Sort{
     return _array;
   }
 
-  //Missing optimization on decending order and random?
   quickSort(array){
 
     let _array = [...array];
-    let indexLock = [];
     let min = 0;
     let max = _array.length - 1;
+    let indexLock = [max];
     
     let compareIndex = min;
     let pivot = max;
@@ -102,6 +101,7 @@ export class Sort{
     this.operation = 0;
 
     while(min != max){
+      pivot = (indexLock[indexLock.length - 1] != null) ? indexLock[indexLock.length - 1] : max;
       for(let i = min; i <= pivot; i++){
         this.operation++;
         if(this.#getCompare(_array[pivot], _array[i])){
@@ -114,35 +114,15 @@ export class Sort{
 
       this.operation++;
       compareIndex--;
-      indexLock[compareIndex] = true;
+      if(compareIndex > min){
+        indexLock.push(compareIndex - 1);
+      } else {
+        min = compareIndex + 1;
+        indexLock.pop();
+      }
 
       if(compareIndex == max){
         max--;
-      }
-
-      let rightHit = false;
-      if(compareIndex - 1 > 0 && indexLock[compareIndex - 1] != true){
-        pivot = compareIndex - 1;
-        rightHit = true;
-      } else {
-        pivot = max;
-      }
-
-      let leftHit = false;
-      for(let i = min; i < max; i++){
-        this.operation++;
-        if(leftHit == false){
-          if(indexLock[i] != true){
-            min = i;
-            leftHit = true;
-            if(rightHit == true){
-              break;
-            }
-          }
-        } else if(indexLock[i] == true && indexLock[i - 1] != true){
-          pivot = i - 1;
-          break;
-        }
       }
       compareIndex = min;
     }
