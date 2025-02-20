@@ -41,6 +41,7 @@ export class BinarySearchTree extends Collection{
 
     let currentNode = 0;
     let currentObject = this.array[currentNode];
+
     while(currentObject != null){
       if(this.#equals(object, currentObject)){
         return currentNode;
@@ -171,6 +172,7 @@ export class BinarySearchTree extends Collection{
     return (this.array[this.#getChildNode(node, 2)]) ? this.#getLowestValueNode(this.#getChildNode(node, 2)) : this.#getHighestValueNode(this.#getChildNode(node, 1));
   }
 
+    //this might need to traverse instead
   #swapInOrderNodes(node){
 
     let inOrderNode = this.#inOrderNode(node);

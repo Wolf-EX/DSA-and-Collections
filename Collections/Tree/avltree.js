@@ -2,7 +2,6 @@ import { Comparator } from "../comparator.js";
 import { BinarySearchTree } from "./binarysearchtree.js";
 
 //fix up variable names, clean up code
-//Test and Fix delete function
 export class AVLTree extends BinarySearchTree{
 
 
@@ -19,7 +18,7 @@ export class AVLTree extends BinarySearchTree{
 
     this.#getCompare;
     this.#equals;
-    this.#rotateNode;
+    this.#balanceNodes, this.#rotateNode;
     this.#getChildNode, this.#getParentNode;
     this.#inOrderNode;
     this.#swapInOrderNodes;
@@ -37,7 +36,42 @@ export class AVLTree extends BinarySearchTree{
       currentObject = this.array[currentNode];
     }
     this.array[currentNode] = new Node(object, currentNode);
-    let unbalancedNode = this.#updateDepth(currentNode);
+
+    this.#balanceNodes(currentNode);
+  }
+
+  search(object){
+
+    let currentNode = 0;
+    let currentObject = this.array[currentNode];
+
+    while(currentObject != null){
+      if(this.#equals(object, currentObject.value)){
+        return currentNode;
+      }
+      currentNode = this.#getChildNode(currentNode, this.#getCompare(object, currentObject));
+      currentObject = this.array[currentNode];
+    }
+    return -1;
+  }
+
+  remove(object){
+
+    let deletingNode = this.search(object);
+
+    if(deletingNode != -1){
+      this.array[deletingNode] = null;
+      this.#swapInOrderNodes(deletingNode);
+      while(this.array[this.array.length - 1] == null){
+        this.array.pop();
+      }
+    }
+    this.#balanceNodes(this.#getParentNode(deletingNode));
+  }
+
+  #balanceNodes(node){
+
+    let unbalancedNode = this.#updateDepth(node);
     if(unbalancedNode != null){
 
       let direction = (this.#getNodeBalanceFactor(unbalancedNode) < 0) ? 1 : 2;
@@ -155,6 +189,7 @@ export class AVLTree extends BinarySearchTree{
     return (this.array[this.#getChildNode(node, 2)]) ? this.#getLowestValueNode(this.#getChildNode(node, 2)) : this.#getHighestValueNode(this.#getChildNode(node, 1));
   }
 
+  //this might need to traverse instead
   #swapInOrderNodes(node){
 
     let inOrderNode = this.#inOrderNode(node);
@@ -163,6 +198,15 @@ export class AVLTree extends BinarySearchTree{
       this.array[node] = this.array[inOrderNode];
       this.array[inOrderNode] = null;
       this.#swapInOrderNodes(inOrderNode);
+    }
+
+    //update depth
+    if(this.array[node]){
+      let leftChild = (this.array[this.#getChildNode(node, 1)] != null) ? this.array[this.#getChildNode(node, 1)].depth : this.#getNodeHeight(node);
+      let rightChild = (this.array[this.#getChildNode(node, 2)] != null) ? this.array[this.#getChildNode(node, 2)].depth : this.#getNodeHeight(node);
+
+      this.array[node].depth = Math.max(leftChild, rightChild);
+      this.array[node].balanceFactor = rightChild - leftChild; // for debug(soon)
     }
   }
 
@@ -173,7 +217,6 @@ export class AVLTree extends BinarySearchTree{
 
     while(this.array[_node] != null){
       
-
       let leftChild = (this.array[this.#getChildNode(_node, 1)] != null) ? this.array[this.#getChildNode(_node, 1)].depth : this.#getNodeHeight(_node);
       let rightChild = (this.array[this.#getChildNode(_node, 2)] != null) ? this.array[this.#getChildNode(_node, 2)].depth : this.#getNodeHeight(_node);
 
