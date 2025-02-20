@@ -11,7 +11,7 @@ export class BinarySearchTree extends Collection{
     if(arg[0] && Object.hasOwn(arg[0].__proto__, 'compare')){
       this.#comparator = arg[0];
     } else {
-      this.#comparator = new compareClassString();
+      this.#comparator = new compareClass();
     }
 
     this.#getCompare;

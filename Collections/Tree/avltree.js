@@ -2,6 +2,7 @@ import { Comparator } from "../comparator.js";
 import { BinarySearchTree } from "./binarysearchtree.js";
 
 //fix up variable names, clean up code
+//with larger trees, can get wrong rotation?
 export class AVLTree extends BinarySearchTree{
 
 
@@ -13,7 +14,7 @@ export class AVLTree extends BinarySearchTree{
     if(arg[0] && Object.hasOwn(arg[0].__proto__, 'compare')){
       this.#comparator = arg[0];
     } else {
-      this.#comparator = new compareClassString();
+      this.#comparator = new compareClass();
     }
 
     this.#getCompare;
@@ -83,6 +84,7 @@ export class AVLTree extends BinarySearchTree{
     }
   }
 
+  //bug some case a node that rotates isn't deleting?
   #rotateNode(node, direction){
     let nodes = [];
     let rotateDirection = -direction + 3;//reverse rotation direction
@@ -299,9 +301,9 @@ class compareClass extends Comparator{
 
   compare(a, b){
     if(!a){
-      a = {value : Infinity};
+      a = Infinity;
     }
-    return a.value - b.value;
+    return a - b.value;
   }
 }
 
