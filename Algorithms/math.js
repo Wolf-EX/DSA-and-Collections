@@ -39,13 +39,13 @@ export class MathUtil{
 
   getNearestPerfectSquare = function(n) {
     let r = 2;
-    while (r ** 2 < n) {
+    while (r * r < n) {
       r++;
     }
     if(r === n) {
       return r;
     }
     const l = r - 1;
-    return Number((n - (l ** 2) < (r ** 2) - n) ? l : r);
+    return Number((n - (l * l) < (r * r) - n) ? l : r);
   }
 }
