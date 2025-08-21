@@ -1,11 +1,8 @@
 export class MathUtil{
 
-  constructor(){
-
-  }
+  constructor(){}
 
   getRandomInt = function(maxInt) {
-
     return ~~(Math.random() * maxInt);
   }
 
@@ -21,8 +18,6 @@ export class MathUtil{
 
   // Squareroot without built in functions
   sqrt = function(n, precision = .00001) {
-    let iterations = 0;
-
     if(n < 0) {
       return NaN;
     }
@@ -37,10 +32,8 @@ export class MathUtil{
     do {
       x = (x + y) / 2;
       y = (n / x);
-      iterations++;
     } while ((n / y) - y > precision);
     
-    console.log('iterations', iterations);
     return y;
   }
 
