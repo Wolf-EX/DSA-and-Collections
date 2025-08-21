@@ -7,7 +7,6 @@ export class MathUtil{
   }
 
   mod = function(n, d) {
-
     return ((n % d) + d) % d;
     // return -(Math.floor(n / d) * d - n);
   }
