@@ -45,6 +45,6 @@ export class MathUtil{
       return r;
     }
     const l = r - 1;
-    return Number((n - (l * l) < (r * r) - n) ? l : r);
+    return (n - (l * l) < (r * r) - n) ? l : r;
   }
 }
